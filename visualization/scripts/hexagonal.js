@@ -1,9 +1,7 @@
 class Hexdrawer{
-    constructor(size, levels){
-        this.color_from = color(20, 20, 20);
-        this.color_to = color(255, 40, 40);
+    constructor(size, countLevels){
         this.antcolor = 'white';
-        this.levels = levels;
+        this.countLevels = countLevels;
         this.size = size;
     }
 
@@ -23,7 +21,7 @@ class Hexdrawer{
     }
 
     drawShape(x, y, level) {
-        let color = lerpColor(this.color_from, this.color_to, level / this.levels);
+        const color = getColor(level, this.countLevels);
         fill(color);
         this.setShapeDrawingMode();
         
@@ -129,6 +127,6 @@ class Hexwalker {
                 break;
         }
 
-        return [newX, newY, step.finalDir];
+        return [newX, newY, step.moveDir];
     }
 }

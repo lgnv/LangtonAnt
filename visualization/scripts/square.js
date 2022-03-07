@@ -1,7 +1,5 @@
 class Squaredrawer {
     constructor(size, countLevels) {
-        this.color_from = color(20,20,20);
-        this.color_to = color(255,40,40);
         this.antcolor = 'white';
         this.countLevels = countLevels;
         this.size = size;
@@ -23,7 +21,7 @@ class Squaredrawer {
     }
 
     drawShape(x, y, level) {
-        let color = lerpColor(this.color_from, this.color_to, level / this.countLevels);
+        const color = getColor(level, this.countLevels);
         fill(color);
         this.setShapeDrawingMode();
         rect(x * this.size, y * this.size, this.size, this.size);
