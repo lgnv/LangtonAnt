@@ -25,6 +25,13 @@
                 <button onclick="pause()" id="pausebutton">Start</button>
                 <button onclick="restart()" id="restartbutton">Restart</button>
                 <button onclick="move()" id="movebutton">Move</button>
+                <p id="speed" style="margin-left: 3em; margin-right: 1em;">Moves per update: 1</p>
+                <button onclick="updateSpeed(-100)" id="minusbutton">-100</button>
+                <button onclick="updateSpeed(-10)" id="minusbutton">-10</button>
+                <button onclick="updateSpeed(-1)" id="minusbutton">-1</button>
+                <button onclick="updateSpeed(1)" id="plusbutton">+1</button>
+                <button onclick="updateSpeed(10)" id="plusbutton">+10</button>
+                <button onclick="updateSpeed(100)" id="plusbutton">+100</button>
                 <p id="counter" style="margin-left: 2em;">Counter: 0</p>
             </div>
         </div>

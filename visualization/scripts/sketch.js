@@ -5,6 +5,7 @@ var width, height;
 
 let data = {};
 let start = false;
+let speed = 1;
 
 function initElements() {
     document.getElementById("setup-data").style.visibility = "hidden";
@@ -54,6 +55,14 @@ function setupSquareWalk(steps) {
     antwalk.counterElement = document.getElementById("counter")
 }
 
+function updateSpeed(count) {
+    speed += count;
+    speed = speed > 0 
+            ? speed 
+            : 0;
+    document.getElementById("speed").innerHTML = `Moves per update: ${speed}`;
+}
+
 function reset(){
     clear();
     setupCanvas();
@@ -61,8 +70,10 @@ function reset(){
 }
 
 function draw() {
-    if (start)
+    if (start) {
+        antwalk.actionsPerDraw = speed;
         antwalk.draw();
+    }
 }
 
 function restart(){
@@ -94,5 +105,7 @@ function setPauseButtonText(text){
 }
 
 function move(){
-    antwalk.move();
+    for (let i = 0; i < speed; i++) {
+        antwalk.move();
+    }
 }
