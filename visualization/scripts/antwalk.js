@@ -1,17 +1,6 @@
 const HEX = "hex";
 const SQUARE = "square";
 
-const direction = {
-    Up: "U",
-    Down: "D",
-    Right: "R",
-    Left: "L",
-    UpLeft: "UL",
-    UpRight: "UR",
-    DownLeft: "DL",
-    DownRight: "DR"
-};
-
 class Antwalk {
     speed = 1;
     actionsPerDraw = 1;
@@ -56,7 +45,7 @@ class Antwalk {
         this.y = Math.round(this.gridY / 2);
         this.prevX = this.x;
         this.prevY = this.y;
-        this.dir = 0;
+        this.dir = Directions.Up;
         this.needsEnlargement = false;
 
         if (this.counterElement == null) {

@@ -65,7 +65,7 @@ class Hexdrawer{
         let coords = this.getScreenPoint(x, y);
 
         translate(coords[0], coords[1]);
-        rotate((dir * (1/3) + (1/3)) * PI);
+        rotate(directionToAngleHex(dir));
 
         let x1 = 0;
         let y1 = -0.3 * this.size;
@@ -96,32 +96,32 @@ class Hexwalker {
         debugger;
 
         switch(step.moveDir) {
-            case direction.Down:
+            case Directions.Down:
                 newY = y + 2;
                 break;
-            case direction.Up:
+            case Directions.Up:
                 newY = y - 2;
                 break;
-            case direction.UpRight:
+            case Directions.UpRight:
                 newY = y - 1;
                 if (y % 2 === 1) {
                     newX = x + 1;
                 }
                 break;
-            case direction.DownLeft:
+            case Directions.DownLeft:
                 newY = y + 1;
                 if (y % 2 === 0) {
                     newX = x + 1;
                 }
                 break;
             
-            case direction.DownRight:
+            case Directions.DownRight:
                 newY = y + 1;
                 if (y % 2 === 1) {
                     newX = x - 1;
                 }
                 break;               
-            case direction.UpLeft:
+            case Directions.UpLeft:
                 newY = y - 1;
                 if (y % 2 == 0) {
                     newX = x - 1;

@@ -50,7 +50,7 @@ class Squaredrawer {
         fill(this.antcolor);
 
         translate((x + 0.5) * this.size, (y + 0.5) * this.size);
-        rotate((dir * 0.5 + 0.5) * PI);
+        rotate(directionToAngleSquare(dir));
 
         let x1 = 0;
         let y1 = -0.3 * this.size;
@@ -70,20 +70,20 @@ class Squarewalker {
         let newX = x, newY = y;
 
         switch(step.moveDir){
-            case direction.Right:
+            case Directions.Right:
                 newX = x + 1
                 break;
-            case direction.Down:
+            case Directions.Down:
                 newY = y + 1
                 break;
-            case direction.Left:
+            case Directions.Left:
                 newX = x - 1
                 break;
-            case direction.Up:
+            case Directions.Up:
                 newY = y - 1
                 break;
         }
 
-        return [newX, newY, step.finalDir]
+        return [newX, newY, step.moveDir]
     }
 }
