@@ -73,10 +73,10 @@ class HexDrawer {
 
 class HexWalker {
     moveAnt(grid, x, y, step) {
-        grid[x][y] = step.cellState;
+        grid[x][y] = step.state;
         let newX = x, newY = y;
 
-        switch(step.moveDir) {
+        switch(step.direction) {
             case Directions.Down:
                 newY = y + 2;
                 break;
@@ -110,6 +110,6 @@ class HexWalker {
                 break;
         }
 
-        return [newX, newY, step.moveDir];
+        return [newX, newY, step.direction];
     }
 }

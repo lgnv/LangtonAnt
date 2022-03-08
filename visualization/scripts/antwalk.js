@@ -17,7 +17,7 @@ class Antwalk {
         this.type = type;
         this.steps = steps;
        
-        this.countLevels = new Set(steps.map(x => x.cellState)).size;
+        this.countLevels = new Set(steps.map(x => x.state)).size;
 
         if (this.type === HEX) {
             this.gridY = Math.round(3 * grid * height / 700);

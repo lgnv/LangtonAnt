@@ -48,10 +48,10 @@ class SquareDrawer {
 
 class SquareWalker {
     moveAnt(grid, x, y, step) {
-        grid[x][y] = step.cellState;
+        grid[x][y] = step.state;
         let newX = x, newY = y;
 
-        switch(step.moveDir){
+        switch(step.direction){
             case Directions.Right:
                 newX = x + 1
                 break;
@@ -66,6 +66,6 @@ class SquareWalker {
                 break;
         }
 
-        return [newX, newY, step.moveDir]
+        return [newX, newY, step.direction]
     }
 }
