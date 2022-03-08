@@ -2,10 +2,8 @@ const HEX = "hex";
 const SQUARE = "square";
 
 class Antwalk {
-    speed = 1;
     actionsPerDraw = 1;
     counter = 0;
-    initDraw = false
     paused = true
     counterElement;
     enlargeCounter = 0
@@ -13,32 +11,33 @@ class Antwalk {
     walker;
     steps;
 
-    constructor(grid, width, height, type, steps) {
-        this.grid = [];
-        this.gridX = grid;
+    constructor(grid, width, height, type, steps, init) {
+        this.grid = init || [];
+        this.gridX = init?.length || grid;
         this.type = type;
         this.steps = steps;
        
         this.countLevels = new Set(steps.map(x => x.cellState)).size;
 
-        if (this.type == HEX) {
+        if (this.type === HEX) {
             this.gridY = Math.round(3 * grid * height / 700);
             this.size = width / grid * 0.6;
-            this.drawer = new Hexdrawer(this.size, this.countLevels);
-            this.walker = new Hexwalker(steps);
-        } else if (this.type == SQUARE) {
+            this.drawer = new HexDrawer(this.size, this.countLevels);
+            this.walker = new HexWalker();
+        } else if (this.type === SQUARE) {
             this.gridY = this.gridX;
             this.size = width / this.gridX;
-            this.drawer = new Squaredrawer(this.size, this.countLevels);
-            this.walker = new Squarewalker(steps);
+            this.drawer = new SquareDrawer(this.size, this.countLevels);
+            this.walker = new SquareWalker();
         }
-
-        for (let x = 0; x < this.gridX; x++){
-            let column = [];
-            for(let y = 0; y < this.gridY; y++) {
-                column.push(0);
+        if (!init) {
+            for (let x = 0; x < this.gridX; x++){
+                let column = [];
+                for(let y = 0; y < this.gridY; y++) {
+                    column.push(0);
+                }
+                this.grid.push(column);
             }
-            this.grid.push(column);
         }
 
         this.x = Math.round(this.gridX / 2);
@@ -46,18 +45,32 @@ class Antwalk {
         this.prevX = this.x;
         this.prevY = this.y;
         this.dir = Directions.Up;
-        this.needsEnlargement = false;
 
         if (this.counterElement == null) {
             this.counterElement = document.getElementById("counter");
         }
 
-        this.drawer.drawGrid(this.grid, this.x, this.y, this.dir);
+        this.drawGrid(this.grid, this.x, this.y, this.dir);
+    }
+
+    redraw(grid, antX, antY, dir) {
+        clear();
+        this.drawGrid(grid, antX, antY, dir);
+    }
+
+    drawGrid(grid, antX, antY, dir) {
+        this.drawer.setShapeDrawingMode();
+        for(let x = 0; x < grid.length; x++) {
+            for(let y = 0; y < grid[0].length; y++) {
+                this.drawer.drawShape(x, y, grid[x][y]);
+            }
+        }
+        this.drawer.drawAnt(antX, antY, dir);
     }
 
     draw(){
         if (this.needsRedraw) {
-            this.drawer.redraw(this.grid, this.x, this.y, this.dir);
+            this.redraw(this.grid, this.x, this.y, this.dir);
             this.needsRedraw = false;
         }
         if (!this.paused) {
@@ -102,23 +115,22 @@ class Antwalk {
 
     enlargeGrid() {
         this.enlargeCounter++;
-        let newGridX = this.gridX * 2;
-        let newGridY = this.gridY * 2;
+        const newGridX = this.gridX * 2;
+        const newGridY = this.gridY * 2;
 
-        let newGrid = [];
+        const newGrid = [];
         for (let x = 0; x < newGridX; x++) {
-            let column = [];
+            const column = [];
             for (let y = 0; y < newGridY; y++) {
                 column.push(0);
             }
             newGrid.push(column);
         }
 
-        let offsetX = Math.round(newGridX / 4);
-        let offsetY = offsetX;
-        if(this.type == HEX) {
-            offsetY *= 2;
-        }
+        const offsetX = Math.round(newGridX / 4);
+        const offsetY = this.type === HEX
+                        ? offsetX * 2
+                        : offsetX;
 
         for(let x = 0; x < this.gridX; x++) {
             for(let y = 0; y < this.gridY; y++) {

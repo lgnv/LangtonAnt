@@ -42,3 +42,24 @@ z:hover {
 a {
     color: #EAF280;
 }
+
+#speed {
+    margin-left: 3em;
+    margin-right: 1em;
+}
+
+#counter {
+    margin-left: 2em;
+}
+
+.upload-data {
+    margin: 10px;
+}
+
+.w3-col {
+    width: 53em;
+}
+
+.w3-rest {
+    min-width: 17em;
+}

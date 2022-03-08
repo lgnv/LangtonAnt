@@ -1,23 +1,7 @@
-class Squaredrawer {
+class SquareDrawer {
     constructor(size, countLevels) {
-        this.antcolor = 'white';
         this.countLevels = countLevels;
         this.size = size;
-    }
-
-    redraw(grid, antX, antY, dir) {
-        clear();
-        this.drawGrid(grid, antX, antY, dir);
-    }
-
-    drawGrid(grid, antX, antY, dir) {
-        this.setShapeDrawingMode();
-        for(let x = 0; x < grid.length; x++) {
-            for(let y = 0; y < grid[0].length; y++) {
-                this.drawShape(x, y, grid[x][y]);
-            }
-        }
-        this.drawAnt(antX, antY, dir);
     }
 
     drawShape(x, y, level) {
@@ -45,7 +29,7 @@ class Squaredrawer {
 
     drawAnt(x, y, dir) {
         strokeWeight(0);
-        fill(this.antcolor);
+        fill(ANT_COLOR);
 
         translate((x + 0.5) * this.size, (y + 0.5) * this.size);
         rotate(directionToAngleSquare(dir));
@@ -62,7 +46,7 @@ class Squaredrawer {
     }
 }
 
-class Squarewalker {
+class SquareWalker {
     moveAnt(grid, x, y, step) {
         grid[x][y] = step.cellState;
         let newX = x, newY = y;

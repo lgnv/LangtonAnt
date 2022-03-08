@@ -1,7 +1,6 @@
 function getColor(i, count) {
     const colors = [
         color(0, 0, 0),
-        color(255, 255, 255),
         color(255, 0, 0),
         color(255, 128, 0),
         color(255, 255, 0),
@@ -20,3 +19,5 @@ function getColor(i, count) {
         ? lerpColor(color(20,20,20), color(255,40,40), i / count)
         : colors[i];
 }
+
+const ANT_COLOR = 'white';

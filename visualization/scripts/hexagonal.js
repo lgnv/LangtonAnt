@@ -1,23 +1,7 @@
-class Hexdrawer{
+class HexDrawer {
     constructor(size, countLevels){
-        this.antcolor = 'white';
         this.countLevels = countLevels;
         this.size = size;
-    }
-
-    redraw(grid, antX, antY) {
-        clear();
-        this.drawGrid(grid, antX, antY);
-    }
-
-    drawGrid(grid, antX, antY, dir) {
-        this.setShapeDrawingMode();
-        for (let x = 0; x < grid.length; x++) {
-            for (let y = 0; y < grid[0].length; y++) {
-                this.drawShape(x, y, grid[x][y]);
-            }
-        }
-        this.drawAnt(antX, antY, dir);
     }
 
     drawShape(x, y, level) {
@@ -58,26 +42,26 @@ class Hexdrawer{
 
     drawAnt(x, y, dir) {
         strokeWeight(0);
-        fill(this.antcolor);
+        fill(ANT_COLOR);
 
-        let coords = this.getScreenPoint(x, y);
+        const coords = this.getScreenPoint(x, y);
 
         translate(coords[0], coords[1]);
         rotate(directionToAngleHex(dir));
 
-        let x1 = 0;
-        let y1 = -0.3 * this.size;
-        let x2 = this.size / 4;
-        let y2 = this.size / 5;
-        let x3 = -this.size / 4;
-        let y3 = this.size / 5;
+        const x1 = 0;
+        const y1 = -0.3 * this.size;
+        const x2 = this.size / 4;
+        const y2 = this.size / 5;
+        const x3 = -this.size / 4;
+        const y3 = this.size / 5;
 
         triangle(x1, y1, x2, y2, x3, y3);
         resetMatrix();
     }
 
     getScreenPoint(x, y) {
-        let newX = y % 2 == 0 ? x + 0.4 : x + 0.9;
+        let newX = y % 2 === 0 ? x + 0.4 : x + 0.9;
         newX *= this.size * 1.6;
 
         let newY = y + 1.5;
@@ -87,11 +71,10 @@ class Hexdrawer{
     }
 }
 
-class Hexwalker {
+class HexWalker {
     moveAnt(grid, x, y, step) {
         grid[x][y] = step.cellState;
         let newX = x, newY = y;
-        debugger;
 
         switch(step.moveDir) {
             case Directions.Down:
@@ -121,7 +104,7 @@ class Hexwalker {
                 break;               
             case Directions.UpLeft:
                 newY = y - 1;
-                if (y % 2 == 0) {
+                if (y % 2 === 0) {
                     newX = x - 1;
                 }
                 break;

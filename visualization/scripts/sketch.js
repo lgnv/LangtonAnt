@@ -1,11 +1,25 @@
-var framerateElement;
-var antwalk;
-var canvas;
-var width, height;
+﻿let antwalk;
+let canvas;
+let width, height;
 
 let data = {};
 let start = false;
 let speed = 1;
+
+function TransMatrix(A) {
+    if (!A)
+        return undefined;
+    let m = A.length,
+        n = A[0].length,
+        AT = [];
+    for (let i = 0; i < n; i++) {
+        AT[i] = [];
+        for (let j = 0; j < m; j++) {
+            AT[i][j] = A[j][i];
+        }
+    }
+    return AT;
+}
 
 function initElements() {
     document.getElementById("setup-data").style.visibility = "hidden";
@@ -13,8 +27,8 @@ function initElements() {
 }
 
 function onLoadData(input) {
-    let file = input.files[0];
-    let reader = new FileReader();
+    const file = input.files[0];
+    const reader = new FileReader();
     reader.readAsText(file);
     reader.onload = () => {
         data = JSON.parse(reader.result);
@@ -31,27 +45,26 @@ function setupCanvas(){
 function setupData(data) {
     start = true;
     const walktype = data.type || SQUARE;
-    const steps = data.steps;
     if (walktype === HEX) {
-        setupHexWalk(steps);
+        setupHexWalk(data);
     } else {
-        setupSquareWalk(steps);
+        setupSquareWalk(data);
     }
 }
 
-function setupHexWalk(steps){
-    width = 800;
-    height = 700;
+function setupHexWalk(data){
+    width = 700;
+    height = 600;
     reset();
-    antwalk = new Antwalk(10, width, height, HEX, steps);
+    antwalk = new Antwalk(10, width, height, HEX, data.steps, TransMatrix(data.init));
     antwalk.counterElement = document.getElementById("counter")
 }
 
-function setupSquareWalk(steps) {
-    width = 700;
-    height = 700;
+function setupSquareWalk(data) {
+    width = 600;
+    height = 600;
     reset();
-    antwalk = new Antwalk(10, width, height, SQUARE, steps);
+    antwalk = new Antwalk(10, width, height, SQUARE, data.steps, TransMatrix(data.init));
     antwalk.counterElement = document.getElementById("counter")
 }
 
@@ -60,13 +73,13 @@ function updateSpeed(count) {
     speed = speed > 0 
             ? speed 
             : 0;
-    document.getElementById("speed").innerHTML = `Moves per update: ${speed}`;
+    document.getElementById("speed").innerHTML = `Движений за шаг: ${speed}`;
 }
 
 function reset(){
     clear();
     setupCanvas();
-    setPauseButtonText("Start");
+    setPauseButtonText("Запустить");
 }
 
 function draw() {
@@ -79,7 +92,7 @@ function draw() {
 function restart(){
     clear();
     setupData(data);
-    setPauseButtonText("Start");
+    setPauseButtonText("Запустить");
 }
 
 function pause(){
@@ -91,10 +104,10 @@ function setPauseButtonText(text){
     let pausebutton = document.getElementById("pausebutton");
     if(text == null) {
         if(antwalk.paused) {
-            pausebutton.textContent = "Continue";
+            pausebutton.textContent = "Продолжить";
             pausebutton.style.backgroundColor = "rgb(80, 187, 114)";
         } else {
-            pausebutton.textContent = "Pause";
+            pausebutton.textContent = "Пауза";
             pausebutton.style.backgroundColor = "rgb(187, 171, 80)";
         }
 
