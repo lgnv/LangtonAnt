@@ -12,8 +12,8 @@ class Antwalk {
     steps;
 
     constructor(grid, width, height, type, steps, init) {
-        this.grid = init || [];
-        this.gridX = init?.length || grid;
+        this.grid = init?.map || [];
+        this.gridX = init?.map.length || grid;
         this.type = type;
         this.steps = steps;
        
@@ -40,8 +40,8 @@ class Antwalk {
             }
         }
 
-        this.x = Math.round(this.gridX / 2);
-        this.y = Math.round(this.gridY / 2);
+        this.x = init?.ant.x || Math.round(this.gridX / 2);
+        this.y = init?.ant.y || Math.round(this.gridY / 2);
         this.prevX = this.x;
         this.prevY = this.y;
         this.dir = Directions.Up;

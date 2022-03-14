@@ -21,6 +21,8 @@ function TransMatrix(A) {
     return AT;
 }
 
+const clone = (a) => JSON.parse(JSON.stringify(a));
+
 function initElements() {
     document.getElementById("setup-data").style.visibility = "hidden";
     document.getElementById("buttons").style.visibility = "visible";
@@ -32,8 +34,11 @@ function onLoadData(input) {
     reader.readAsText(file);
     reader.onload = () => {
         data = JSON.parse(reader.result);
+        if (data.init){
+            data.init.map = TransMatrix(data.init.map);
+        }
         initElements();
-        setupData(data);
+        setupData(clone(data));
     }
 }
 
@@ -43,20 +48,20 @@ function setupCanvas(){
 }
 
 function setupData(data) {
-    start = true;
     const walktype = data.type || SQUARE;
     if (walktype === HEX) {
         setupHexWalk(data);
     } else {
         setupSquareWalk(data);
     }
+    start = true;
 }
 
 function setupHexWalk(data){
     width = 700;
     height = 600;
     reset();
-    antwalk = new Antwalk(10, width, height, HEX, data.steps, TransMatrix(data.init));
+    antwalk = new Antwalk(10, width, height, HEX, data.steps, data.init);
     antwalk.counterElement = document.getElementById("counter")
 }
 
@@ -64,7 +69,7 @@ function setupSquareWalk(data) {
     width = 600;
     height = 600;
     reset();
-    antwalk = new Antwalk(10, width, height, SQUARE, data.steps, TransMatrix(data.init));
+    antwalk = new Antwalk(10, width, height, SQUARE, data.steps, data.init);
     antwalk.counterElement = document.getElementById("counter")
 }
 
@@ -91,7 +96,7 @@ function draw() {
 
 function restart(){
     clear();
-    setupData(data);
+    setupData(clone(data));
     setPauseButtonText("Запустить");
 }
 
