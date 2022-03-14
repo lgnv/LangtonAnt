@@ -40,8 +40,8 @@ class Antwalk {
             }
         }
 
-        this.x = init.ant.x || Math.round(this.gridX / 2);
-        this.y = init.ant.y || Math.round(this.gridY / 2);
+        this.x = init?.ant.x || Math.round(this.gridX / 2);
+        this.y = init?.ant.y || Math.round(this.gridY / 2);
         this.prevX = this.x;
         this.prevY = this.y;
         this.dir = Directions.Up;

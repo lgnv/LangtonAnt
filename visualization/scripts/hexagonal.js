@@ -92,14 +92,14 @@ class HexWalker {
             case Directions.DownLeft:
                 newY = y + 1;
                 if (y % 2 === 0) {
-                    newX = x + 1;
+                    newX = x - 1;
                 }
                 break;
             
             case Directions.DownRight:
                 newY = y + 1;
                 if (y % 2 === 1) {
-                    newX = x - 1;
+                    newX = x + 1;
                 }
                 break;               
             case Directions.UpLeft:
