@@ -1,27 +1,10 @@
 # Визуализация для Code Retreat: Муравей Лэнтона
 
-## Входные данные
-
 Для работы визуализатора необходимо загрузить Json-файл.
+Примеры готовых файлов для каждой сессии находятся в директории `results`.
 
-В Json-файле должен находится объект состоящий из списка шагов `steps`. 
-Каждый шаг представляет из себя поля:
-- типа поля `type`.
-    - null | `square` квадратное
-    - `hex` - гексагональное
-- Цвет клетки(`state`), который получится после шага
-  - `0 черный`
-  - `1 красный`
-  - ...
-- Направление движения(`direction`), куда должен идти муравей
-  - `U ↑`
-  - `D ↓`
-  - `L ←`
-  - `R →`
-  - `UL ↖`
-  - `UR ↗`
-  - `DL ↙`
-  - `DR ↘`
-- Объекта `init`, который определяет начальное состояние поля.
-  - `map` - двумерный массив, где в `map[y][x]` находится цвет клетки с координатами `(x, y)`
-  - `ant` - координаты начального положения муравья
+На каждую сессию есть свой readme. Их можно найти по следующим ссылкам:
+- [Simple](https://github.com/lgnv/LangtonAnt/blob/simple/visualization/readme.md)
+- [Map](https://github.com/lgnv/LangtonAnt/blob/map/visualization/readme.md)
+- [Colors](https://github.com/lgnv/LangtonAnt/blob/colors/visualization/readme.md)
+- [Hex](https://github.com/lgnv/LangtonAnt/blob/hex/visualization/readme.md)
